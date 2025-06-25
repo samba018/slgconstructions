@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Estimation Of Work</title>
+    <script>
+        function checkSelection() {
+    const options = document.getElementsByName("roadOption");
+    const msg = document.getElementsByClassName("message")[0];
+
+    let selected = null;
+    for (let i = 0; i < options.length; i++) {
+        if (options[i].checked) {
+            selected = options[i].value;
+            break;
+        }
+    }
+
+    if (selected === "withBM") {
+        msg.innerText = "Selected estimation considering B.M layer.";
+        msg.style.color = "green";
+        window.location.href = "est2.html";
+    } else if (selected === "withoutBM") {
+        msg.innerText = "Selected estimation considering without B.M layer.";
+        msg.style.color = "green";
+        window.location.href = "est1.html";
+    } else {
+        msg.innerText = "Please select an option.";
+        msg.style.color = "orange";
+    }
+}
+
+    </script>
+    <link rel="stylesheet" href="estimation.css">
+</head>
+<body>
+    <div class="est_container1">
+        <div class="descriptionofroad">
+            <p>The finishing layer road is based on the traffic flow on the road. B.M layer is laid first and followed by B.T layer if the traffic flow is heavy, otherwise the last layer of the road is finished with B.T layer.</p>
+        </div>
+        <div class="selection_type">
+            <p>Select the type of road for estimation</p>
+            <label><input type="radio" name="roadOption" value="withBM"> With B.M layer</label><br>
+            <label><input type="radio" name="roadOption" value="withoutBM"> Without B.M layer</label><br><br>
+            <button onclick="checkSelection()">Submit</button>
+            <p class="message"></p>
+        </div>
+    </div>
+</body>
+</html>
