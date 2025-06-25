@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>calculation</title>
+    <script>
+        function get_data(){
+            const a=document.getElementById("road_dis").value;
+            const b=document.getElementById("road_width").value;
+            let tg=document.getElementById("road_thickness_gsb").value;
+            let tw=document.getElementById("road_thickness_wet").value;
+            let tb=document.getElementById("road_thickness_bt").value;
+            let c=(1000*a*b)/2.83;
+            tg=c*tg;
+            tw=c*tw;
+            tb=c*tb;
+            document.getElementById("cal_result").innerHTML = `
+                <p>GSB Material Volume: ${tg} m³</p>
+                <p>Wet Mix Material Volume: ${tw} m³</p>
+                <p>B.T Layer Volume: ${tb} m³</p>
+            `;
+
+        }
+    </script>
+</head>
+<body>
+    <div class="container_cal">
+        <label>Enter the distance of the road in kms ex 2km,1.9km etc....</label>
+        <input id="road_dis">
+        <br>
+        <label>Enter the width of the road in meter ex 3m,4m etc....</label>
+        <input id="road_width">
+        <br>
+        <label>Enter the thickness of the GSB material in milli meters ex 0.75mm,0.02mm etc....</label>
+        <input id="road_thickness_gsb">
+        <br>
+        <label>Enter the thickness of the wet mix material in milli meters ex 0.75mm,0.02mm etc....</label>
+        <input id="road_thickness_wet">
+        <br>
+        <label>Enter the thickness of the B.T layer in milli meters ex 0.05mm,0.02mm etc....</label>
+        <input id="road_thickness_bt">
+    </div>
+    <div class="cal_button">
+        <button onclick="get_data()">Next</button>
+    </div>
+    <div id="cal_result">
+    </div>
+
+    
+</body>
+</html>

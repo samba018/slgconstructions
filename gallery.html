@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>gallery</title>
+    <link rel="stylesheet" href="site1.css">
+    <link href="home.html">
+    <script>
+    fetch("home.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("home").innerHTML = data;
+      });
+    </script>
+<script>
+    fetch("contact.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("contac").innerHTML = data;
+      });
+  </script>
+</head>
+<body>
+    <div id="home"></div>
+    <div class="gallery_picture_adjustemnt">
+        <div class="home_gallery_imagesdiv1">
+            <img src="home_gallery_image1.jpg" alt="home_gallery_images1a">
+            <img src="home_gallery_image2.jpg" alt="home_gallery_images1a">
+            <img src="home_gallery_image3.jpg" alt="home_gallery_images1a">
+        </div>
+        <div class="home_gallery_imagesdiv2">
+            <img src="home_gallery_image4.jpg" alt="home_gallery_images1a">
+            <img src="home_gallery_image5.jpg" alt="home_gallery_images1a">
+            <img src="home_gallery_image6.jpg" alt="home_gallery_images1a">
+        </div>
+        <div class="home_gallery_imagesdiv2">
+            <img src="home_gallery_image7.jpg" alt="home_gallery_images1a">
+            <img src="home_gallery_image8.jpg" alt="home_gallery_images1a">
+            <img src="home_gallery_image9.jpg" alt="home_gallery_images1a">
+        </div>
+        </div>
+    <div id="contac"></div>
+</body>
+</html>
