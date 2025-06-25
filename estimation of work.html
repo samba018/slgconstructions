@@ -3,6 +3,22 @@
 <head>
     <title>Estimation Of Work</title>
     <script>
+
+        fetch("home.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("home").innerHTML = data;
+      });
+
+
+      fetch("contact.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("contac").innerHTML = data;
+      });
+
+
+
         function checkSelection() {
     const options = document.getElementsByName("roadOption");
     const msg = document.getElementsByClassName("message")[0];
@@ -28,11 +44,11 @@
         msg.style.color = "orange";
     }
 }
-
     </script>
     <link rel="stylesheet" href="estimation.css">
 </head>
 <body>
+    <div id="home"></div>
     <div class="est_container1">
         <div class="descriptionofroad">
             <p>The finishing layer road is based on the traffic flow on the road. B.M layer is laid first and followed by B.T layer if the traffic flow is heavy, otherwise the last layer of the road is finished with B.T layer.</p>
@@ -45,5 +61,6 @@
             <p class="message"></p>
         </div>
     </div>
+    <div id="contac"></div>
 </body>
 </html>
