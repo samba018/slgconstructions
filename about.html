@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>about</title>
+    <link rel="stylesheet" href="site1.css">
+    <script>
+    fetch("home.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("home").innerHTML = data;
+      });
+  </script>
+
+
+
+  <script>
+    fetch("contact.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("contac").innerHTML = data;
+      });
+  </script>
+
+
+
+</head>
+<body>
+
+    <div id="home"></div>
+
+    <div class="aboutus">
+        <p><b>About Us</b></p>
+    </div>
+    <div class="content_allignment">
+    <div class="about_content">
+            <p> <b><i>S L G CONSTRUCTIONS </i></b>  &nbspwas established in the year 2009 on the motive to deliver reliable and enhanced raod ways for the public transport.S L G CONSTRUCTIONS is a prestigious company which execel in the field of road works for more than 14 years of successful journey.We do not compramise with the quality of work at any kind of situation which is our key to success and the company growth.Throughout of our journey 
+                we learned the latest technology and implemented them in the fields successfuly which improved our company standards.
+            <br> To have an reliable work with out any distractions and late we have our own machinery which are required for the field work which help us to deliver your project on time.On the field our supervisors continoulsy monitor the work which mainatins standard quality througout the work.</p>
+    </div>
+    <div class="about_logo">
+         <img src="logo.jpg" alt="logo" height="200" width="250">
+    </div>
+    </div>
+    <div class="why_us">
+        <p><b>Why Choose Us</b></p>
+    </div>
+    <div class="same-text">
+		<p class="why-text" ><b>Trust and Transparency</b></p>
+		<p class="why-text" ><b>On time delivery</b></p>
+		<p class="why-text" ><b>Quality without compromise</b></p>
+
+	</div>
+	<div class="same-text">
+		<p class="why-text" ><b>Dedicated Team Members</b></p>
+		<p class="why-text" ><b>14+ years experience</b></p>
+		<p class="why-text" ><b>Realiiable Work</b></p>
+
+	</div>
+    <div id="contac"></div>
+</body>
+</html>
