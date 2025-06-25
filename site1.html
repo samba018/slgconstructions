@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SLG CONSTRUCTIONS</title>
+    <link rel="stylesheet" href="site1.css" >
+
+
+    <script>
+    fetch("home.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("home").innerHTML = data;
+      });
+  </script>
+
+
+  <script>
+    fetch("contact.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("contac").innerHTML = data;
+      });
+  </script>
+
+
+</head>
+<body style="background-color: rgb(81, 247, 234);">
+    
+    <div id="home"></div>
+    <div class="partner_images">
+    <div class="image1">
+        <div class="picture1">
+        <img  class="zoomimg" src="img1.jpg" alt="fouder" height="400" width="450" style="border-radius: 40px">
+        </div>
+        <div class="picture1_text">
+            <p class="img1" style="display: inline;"><b>Founder & Managing Partner</b></p>
+        </div>        
+    </div>
+    <div class="image2">
+        <div class="picture2">
+        <img class="zoomimg" src="img2.jpg" alt="fouder" height="400" width="450" style="border-radius: 40px">
+        </div>
+        <div class="picture2_text">
+            <p class="img2" style="display: inline;"><b>Founder & Managing Partner</b></p>
+        </div>
+    </div>
+    </div>
+    <div class="info">
+    <div class="work_details">
+        <p>Completed 100+ projects</p>
+        <p>Ongoing 8 projects</p>
+        <p>10 Team members</p>
+        <p>100+ Happy clients</p>
+    </div>
+    </div>
+    <div class="work_types">
+        <div class="bitumen">
+            <img src="bitumen.jpg" alt="bitumen road" style="height: 80px;width: 80px;border-radius: 80%;">
+            <p>Bitumen Roads</p>
+        </div>
+        <div class="ccroad">
+            <img src="ccroad.jpg" alt="ccroad" style="height: 75px;width: 85px;border-radius: 80%;">
+            <p>CC Roads</p>
+        </div>
+        <div class="formation">
+            <img src="formation.jpg" alt="formation road" style="height: 80px;width: 80px;border-radius:50% ;">
+            <p>Road Formation</p>
+        </div>
+        <div class="clearence">
+            <img src="clearence.jpg" alt="clearence road" style="height: 80px;width: 80px;border-radius:50% ;">            
+            <p>Jungel clearence</p>
+        </div>
+    </div>
+    <div class="home_gallery">
+        <div class="heading_home_gallery">
+            <a href="gallery.html" alt="gallery" style="text-decoration: none"><b>Gallery</b></a>
+        </div>
+        <div class="home_gallery_imagesdiv1">
+            <img src="home_gallery_image1.jpg" alt="home_gallery_images1a">
+            <img src="home_gallery_image2.jpg" alt="home_gallery_images1a">
+            <img src="home_gallery_image3.jpg" alt="home_gallery_images1a">
+        </div>
+        <div class="home_gallery_imagesdiv2">
+            <img src="home_gallery_image4.jpg" alt="home_gallery_images1a">
+            <img src="home_gallery_image5.jpg" alt="home_gallery_images1a">
+            <img src="home_gallery_image6.jpg" alt="home_gallery_images1a">
+        </div>
+    </div>
+    <div class="why_choose_us">
+        <p class="text_of" style="display: block;"><b>Why Choose Us</b></p>
+        <div class="reason">
+            <ul>
+                <li>Trust and Transperancy</li>
+                <li>On Time Delivery</li>
+                <li>Quality With Out Compramise</li>
+            </ul>
+        </div>
+    </div>
+    <div id="contac"></div>
+   
+</body>
+</html>
