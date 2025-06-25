@@ -3,6 +3,21 @@
 <head>
     <title>calculation</title>
     <script>
+
+        fetch("home.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("home").innerHTML = data;
+      });
+
+
+        fetch("contact.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("contac").innerHTML = data;
+      });
+
+
         function get_data(){
             const a=document.getElementById("road_dis").value;
             const b=document.getElementById("road_width").value;
@@ -27,6 +42,7 @@
     </script>
 </head>
 <body>
+    <div id="home"></div>
     <div class="container_cal">
         <label>Enter the distance of the road in kms ex 2km,1.9km etc....</label>
         <input id="road_dis">
@@ -51,7 +67,7 @@
     </div>
     <div id="cal_result">
     </div>
-
+    <div id="contac"></div>
     
 </body>
 </html>
