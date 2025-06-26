@@ -3,49 +3,40 @@
 <head>
     <title>calculation</title>
     <link rel="stylesheet" href="site1.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
         let tg = 0, tw = 0, tb = 0;
         let a = 0, b = 0, gsb = 0, wet = 0, bt = 0;
         let man_gsb_cost = 0, man_wet_cost = 0, man_bt_cost = 0;
 
-        // Load external content
-        fetch("home.html")
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("home").innerHTML = data;
-            });
+        window.addEventListener("DOMContentLoaded", () => {
+            fetch("home.html")
+                .then(res => res.text())
+                .then(data => document.getElementById("home").innerHTML = data);
 
-        fetch("contact.html")
-            .then(response => response.text())
-            .then(data => {
-                const contacEl = document.getElementById("contac");
-                if (contacEl) contacEl.innerHTML = data;
-            });
+            fetch("contact.html")
+                .then(res => res.text())
+                .then(data => document.getElementById("contac").innerHTML = data);
+        });
 
-        function next_botton() {
+        function next_button() {
             document.getElementById("costSection").style.display = "block";
         }
 
         function handleNext() {
             a = parseFloat(document.getElementById("road_dis").value);
             b = parseFloat(document.getElementById("road_width").value);
-           
             gsb = parseFloat(document.getElementById("road_thickness_gsb").value);
             wet = parseFloat(document.getElementById("road_thickness_wet").value);
             bt = parseFloat(document.getElementById("road_thickness_bt").value);
 
-            if (isNaN(a) || isNaN(b) || isNaN(gsb) || isNaN(wet) || isNaN(bt)) {
+            if ([a, b, gsb, wet, bt].some(val => isNaN(val))) {
                 alert("Please enter valid numeric values in all fields.");
-                return false;
+                return;
             }
 
-            const container = document.querySelector(".container_cal");
-            if (container) {
-                container.style.display = "none";
-            }
-            next_botton();
+            document.querySelector(".container_cal").style.display = "none";
+            next_button();
         }
 
         function get_data() {
@@ -53,10 +44,10 @@
             tg = volumeFactor * gsb;
             tw = volumeFactor * wet;
             tb = volumeFactor * bt;
-            return true;
         }
 
         function cal_cost_stand_bt() {
+            get_data(); // ensure volume is calculated
             const tgc = tg * 1200;
             const twc = tw * 2000;
             const tbc = tb * 15000;
@@ -65,6 +56,7 @@
         }
 
         function cal_cost_manual_bt() {
+            get_data(); // ensure volume is calculated
             const tgc = tg * man_gsb_cost;
             const twc = tw * man_wet_cost;
             const tbc = tb * man_bt_cost;
@@ -79,7 +71,7 @@
                 <p>GSB Material Volume: ${tg.toFixed(2)} m³</p>
                 <p>Estimated cost of GSB material: ₹${tgc.toFixed(2)}</p>
                 <p>Wet Mix Material Volume: ${tw.toFixed(2)} m³</p>
-                <p>Estimated cost of Wet mix material: ₹${twc.toFixed(2)}</p>
+                <p>Estimated cost of Wet Mix material: ₹${twc.toFixed(2)}</p>
                 <p>B.T Layer Volume: ${tb.toFixed(2)} m³</p>
                 <p>Estimated cost of B.T material: ₹${tbc.toFixed(2)}</p>
                 <p><strong>Total Estimated Cost: ₹${total.toFixed(2)}</strong></p>
@@ -90,26 +82,23 @@
         function checkSelection() {
             const msg = document.getElementById("message_area");
             msg.innerText = "";
-            if (!get_data()) return;
 
-            const options = document.getElementsByName("road_cost_Option");
-            let selected = null;
-            for (let i = 0; i < options.length; i++) {
-                if (options[i].checked) {
-                    selected = options[i].value;
-                    break;
-                }
-            }
+            const selected = [...document.getElementsByName("road_cost_Option")]
+                .find(opt => opt.checked)?.value;
 
-            const manualBox = document.getElementById("manualEstimationBox");
-            if (selected === "manual") {
-                manualBox.style.display = "block";
-            } else if (selected === "market") {
-                manualBox.style.display = "none";
-                cal_cost_stand_bt();
-            } else {
+            if (!selected) {
                 msg.innerText = "Please select an option.";
                 msg.style.color = "red";
+                return;
+            }
+
+            if (selected === "manual") {
+                document.getElementById("manualEstimationBox").style.display = "block";
+                document.getElementById("cal_result").style.display = "none";
+            } else if (selected === "market") {
+                document.getElementById("manualEstimationBox").style.display = "none";
+                document.getElementById("cal_result").style.display = "none";
+                cal_cost_stand_bt();
             }
         }
 
@@ -118,9 +107,9 @@
             man_wet_cost = parseFloat(document.getElementById("wet_mat").value);
             man_bt_cost = parseFloat(document.getElementById("bt_mat").value);
 
-            if (isNaN(man_gsb_cost) || isNaN(man_wet_cost) || isNaN(man_bt_cost)) {
-                alert("Please enter valid numeric values in all fields.");
-                return false;
+            if ([man_gsb_cost, man_wet_cost, man_bt_cost].some(val => isNaN(val))) {
+                alert("Please enter valid numeric values.");
+                return;
             }
 
             cal_cost_manual_bt();
@@ -137,54 +126,48 @@
         <label>Enter the width of the road in meters:</label>
         <input id="road_width" type="number" step="0.1"><br>
 
-        
-        <label>Enter the thickness of the GSB layer in milli meters:</label>
+        <label>Enter the thickness of the GSB layer in mm:</label>
         <input id="road_thickness_gsb" type="number" step="0.01"><br>
 
-        <label>Enter the thickness of the Wet Mix layer in milli meters:</label>
+        <label>Enter the thickness of the Wet Mix layer in mm:</label>
         <input id="road_thickness_wet" type="number" step="0.01"><br>
 
-        <label>Enter the thickness of the B.T layer in milli meters:</label>
+        <label>Enter the thickness of the B.T layer in mm:</label>
         <input id="road_thickness_bt" type="number" step="0.001"><br>
 
         <div class="cal_button2">
             <button class="action_seting_cal_2" onclick="handleNext()">Next</button>
-            <button class="action_seting_cal_2" onclick="window.location.href='estimation of work.html'">Back to Selection</button>
+            <button class="action_seting_cal_2" onclick="window.location.href='estimation of work.html'">Back</button>
         </div>
     </div>
 
     <div class="selection_type_cost" id="costSection" style="display: none;">
-        <p>Select the type of estimation method for calculating the cost:</p>
+        <p>Select estimation method:</p>
         <label><input type="radio" name="road_cost_Option" value="market"> Estimate by market rate</label><br>
-        <label><input type="radio" name="road_cost_Option" value="manual"> Estimate by user known rate</label><br><br>
+        <label><input type="radio" name="road_cost_Option" value="manual"> Estimate by user-known rate</label><br><br>
         <button onclick="checkSelection()">Submit</button>
         <p id="message_area"></p>
     </div>
 
-    <!-- Manual Rate Entry Section -->
     <div class="manual_estimation" id="manualEstimationBox" style="display: none;">
-        <label>Enter the cost of GSB material per unit:</label>
+        <label>Cost of GSB material per unit:</label>
         <input id="gsb_mat" type="number"><br>
 
-        <label>Enter the cost of Wet Mix material per unit:</label>
+        <label>Cost of Wet Mix material per unit:</label>
         <input id="wet_mat" type="number" step="0.1"><br>
 
-        <label>Enter the cost of B.T material per unit:</label>
+        <label>Cost of B.T material per unit:</label>
         <input id="bt_mat" type="number" step="0.01"><br>
 
         <div style="display: flex; justify-content: center; align-items: center;">
-            <button onclick="manual_estimation()" style="background-color: rgb(120, 241, 241);border-radius: 5px;" >Calculate</button>
+            <button onclick="manual_estimation()" style="background-color: rgb(120, 241, 241); border-radius: 5px;">Calculate</button>
         </div>
     </div>
 
-    <!-- Result Box -->
     <div id="cal_result" class="reslt_calculation_2" style="display: none;"></div>
 
-    <!-- Back Button -->
     <div id="back_button_container" style="display: none; text-align: center; margin-top: 20px;">
-        <button class="action_seting_cal_2" onclick="window.location.href='estimation of work.html'">
-            Back to Selection
-        </button>
+        <button class="action_seting_cal_2" onclick="window.location.href='estimation of work.html'">Back to Selection</button>
     </div>
 
     <div id="contac"></div>
