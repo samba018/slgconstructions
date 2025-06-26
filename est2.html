@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>calculation</title>
+    <link rel="stylesheet" href="estimation.css" >
     <script>
 
         fetch("home.html")
@@ -9,8 +10,6 @@
       .then(data => {
         document.getElementById("home").innerHTML = data;
       });
-
-
         fetch("contact.html")
       .then(response => response.text())
       .then(data => {
@@ -30,14 +29,12 @@
             tw=c*tw;
             tbm=c*tbm;
             tb=c*tb;
-            document.getElementById("cal_result").innerHTML = `
+            document.getElementById("cal_result2").innerHTML = `
                 <p>GSB Material Volume: ${tg} m³</p>
                 <p>Wet Mix Material Volume: ${tw} m³</p>
                 <p>B.M Layer volume: ${tbm} m³</p>
                 <p>B.T Layer Volume: ${tb} m³</p>
-            
             `;
-
         }
     </script>
 </head>
@@ -62,10 +59,10 @@
         <label>Enter the thickness of the B.T layer in milli meters ex 0.05mm,0.02mm etc....</label>
         <input id="road_thickness_bt">
     </div>
-    <div class="cal_button">
-        <button onclick="get_data()">Next</button>
+    <div class="cal_button2">
+        <button class="action_seting_cal_2" onclick="get_data()" >Next</button>
     </div>
-    <div id="cal_result">
+    <div id="cal_result2" class="reslt_calculation_2">
     </div>
     <div id="contac"></div>
     
