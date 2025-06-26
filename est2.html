@@ -3,50 +3,46 @@
 <head>
     <title>calculation</title>
     <link rel="stylesheet" href="site1.css">
+    <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-        let tg = 0, tw = 0, tb = 0,tbm=0;
-        let a = 0, b = 0, gsb = 0, wet = 0, bt = 0,bm=0;
-        let man_gsb_cost = 0, man_wet_cost = 0, man_bt_cost = 0,man_bm_cost=0;
+        let tg = 0, tw = 0, tb = 0, tbm = 0;
+        let a = 0, b = 0, gsb = 0, wet = 0, bt = 0, bm = 0;
+        let man_gsb_cost = 0, man_wet_cost = 0, man_bt_cost = 0, man_bm_cost = 0;
 
+        window.addEventListener("DOMContentLoaded", () => {
+            fetch("home.html")
+                .then(res => res.text())
+                .then(data => document.getElementById("home").innerHTML = data);
 
-        fetch("home.html")
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("home").innerHTML = data;
-            });
+            fetch("contact.html")
+                .then(res => res.text())
+                .then(data => {
+                    const contacEl = document.getElementById("contac");
+                    if (contacEl) contacEl.innerHTML = data;
+                });
+        });
 
-        fetch("contact.html")
-            .then(response => response.text())
-            .then(data => {
-                const contacEl = document.getElementById("contac");
-                if (contacEl) contacEl.innerHTML = data;
-            });
-
-        function next_botton() {
+        function next_button() {
             document.getElementById("costSection").style.display = "block";
         }
 
         function handleNext() {
             a = parseFloat(document.getElementById("road_dis").value);
             b = parseFloat(document.getElementById("road_width").value);
-            
             gsb = parseFloat(document.getElementById("road_thickness_gsb").value);
             wet = parseFloat(document.getElementById("road_thickness_wet").value);
-            bt = parseFloat(document.getElementById("road_thickness_bt").value);
             bm = parseFloat(document.getElementById("road_thickness_bm").value);
+            bt = parseFloat(document.getElementById("road_thickness_bt").value);
 
-            if (isNaN(a) || isNaN(b)  || isNaN(gsb) || isNaN(wet) || isNaN(bt) || isNaN(bm)) {
+            if ([a, b, gsb, wet, bt, bm].some(val => isNaN(val))) {
                 alert("Please enter valid numeric values in all fields.");
-                return false;
+                return;
             }
 
-            const container = document.querySelector(".container_cal");
-            if (container) {
-                container.style.display = "none";
-            }
-            next_botton();
+            document.querySelector(".container_cal").style.display = "none";
+            next_button();
         }
 
         function get_data() {
@@ -54,36 +50,37 @@
             tg = volumeFactor * gsb;
             tw = volumeFactor * wet;
             tb = volumeFactor * bt;
-            tbm= volumeFactor * bm
-            return true;
+            tbm = volumeFactor * bm;
         }
 
         function cal_cost_stand_bm() {
+            get_data();
             const tgc = tg * 1200;
             const twc = tw * 2000;
+            const tbmc = tbm * 8000;
             const tbc = tb * 15000;
-            const tbmc=tbm*8000;
-            const total = tgc + twc + tbc+tbmc;
-            showResult(tgc, twc, tbc,tbmc, total);
+            const total = tgc + twc + tbmc + tbc;
+            showResult(tgc, twc, tbc, tbmc, total);
         }
 
         function cal_cost_manual_bm() {
+            get_data();
             const tgc = tg * man_gsb_cost;
             const twc = tw * man_wet_cost;
+            const tbmc = tbm * man_bm_cost;
             const tbc = tb * man_bt_cost;
-            const tbmc= tbm * man_bm_cost;
-            const total = tgc + twc + tbc+tbmc;
-            showResult(tgc, twc, tbc,tbmc, total);
+            const total = tgc + twc + tbmc + tbc;
+            showResult(tgc, twc, tbc, tbmc, total);
         }
 
-        function showResult(tgc, twc, tbc,tbmc, total) {
+        function showResult(tgc, twc, tbc, tbmc, total) {
             const resultEl = document.getElementById("cal_result");
             resultEl.style.display = "block";
             resultEl.innerHTML = `
                 <p>GSB Material Volume: ${tg.toFixed(2)} m³</p>
                 <p>Estimated cost of GSB material: ₹${tgc.toFixed(2)}</p>
                 <p>Wet Mix Material Volume: ${tw.toFixed(2)} m³</p>
-                <p>Estimated cost of Wet mix material: ₹${twc.toFixed(2)}</p>
+                <p>Estimated cost of Wet Mix material: ₹${twc.toFixed(2)}</p>
                 <p>B.M Layer Volume: ${tbm.toFixed(2)} m³</p>
                 <p>Estimated cost of B.M material: ₹${tbmc.toFixed(2)}</p>
                 <p>B.T Layer Volume: ${tb.toFixed(2)} m³</p>
@@ -96,38 +93,35 @@
         function checkSelection() {
             const msg = document.getElementById("message_area");
             msg.innerText = "";
-            if (!get_data()) return;
 
-            const options = document.getElementsByName("road_cost_Option");
-            let selected = null;
-            for (let i = 0; i < options.length; i++) {
-                if (options[i].checked) {
-                    selected = options[i].value;
-                    break;
-                }
-            }
+            const selected = [...document.getElementsByName("road_cost_Option")]
+                .find(opt => opt.checked)?.value;
 
-            const manualBox = document.getElementById("manualEstimationBox");
-            if (selected === "manual") {
-                manualBox.style.display = "block";
-            } else if (selected === "market") {
-                manualBox.style.display = "none";
-                cal_cost_stand_bt();
-            } else {
+            if (!selected) {
                 msg.innerText = "Please select an option.";
                 msg.style.color = "red";
+                return;
+            }
+
+            document.getElementById("cal_result").style.display = "none";
+
+            if (selected === "manual") {
+                document.getElementById("manualEstimationBox").style.display = "block";
+            } else if (selected === "market") {
+                document.getElementById("manualEstimationBox").style.display = "none";
+                cal_cost_stand_bm();
             }
         }
 
         function manual_estimation() {
             man_gsb_cost = parseFloat(document.getElementById("gsb_mat").value);
             man_wet_cost = parseFloat(document.getElementById("wet_mat").value);
-            man_bt_cost = parseFloat(document.getElementById("bt_mat").value);
             man_bm_cost = parseFloat(document.getElementById("bm_mat").value);
+            man_bt_cost = parseFloat(document.getElementById("bt_mat").value);
 
-            if (isNaN(man_gsb_cost) || isNaN(man_wet_cost) || isNaN(man_bt_cost) || isNaN(man_bm_cost)) {
-                alert("Please enter valid numeric values in all fields.");
-                return false;
+            if ([man_gsb_cost, man_wet_cost, man_bm_cost, man_bt_cost].some(val => isNaN(val))) {
+                alert("Please enter valid numeric values.");
+                return;
             }
 
             cal_cost_manual_bm();
@@ -143,11 +137,6 @@
 
         <label>Enter the width of the road in meters:</label>
         <input id="road_width" type="number" step="0.1"><br>
-
-
-
-        
-
 
         <label>Enter the thickness of the GSB layer in meters:</label>
         <input id="road_thickness_gsb" type="number" step="0.01"><br>
@@ -175,33 +164,28 @@
         <p id="message_area"></p>
     </div>
 
-    <!-- Manual Rate Entry Section -->
     <div class="manual_estimation" id="manualEstimationBox" style="display: none;">
         <label>Enter the cost of GSB material per unit:</label>
         <input id="gsb_mat" type="number"><br>
 
         <label>Enter the cost of Wet Mix material per unit:</label>
-        <input id="wet_mat" type="number" step="0.1"><br>
+        <input id="wet_mat" type="number"><br>
 
         <label>Enter the cost of B.M material per unit:</label>
-        <input id="bm_mat" type="number" step="0.01"><br>
+        <input id="bm_mat" type="number"><br>
 
         <label>Enter the cost of B.T material per unit:</label>
-        <input id="bt_mat" type="number" step="0.01"><br>
+        <input id="bt_mat" type="number"><br>
 
         <div style="display: flex; justify-content: center; align-items: center;">
-            <button onclick="manual_estimation()" style="background-color: rgb(120, 241, 241);border-radius: 5px;" >Calculate</button>
+            <button onclick="manual_estimation()" style="background-color: rgb(120, 241, 241); border-radius: 5px;">Calculate</button>
         </div>
     </div>
 
-    <!-- Result Box -->
     <div id="cal_result" class="reslt_calculation_2" style="display: none;"></div>
 
-    <!-- Back Button -->
     <div id="back_button_container" style="display: none; text-align: center; margin-top: 20px;">
-        <button class="action_seting_cal_2" onclick="window.location.href='estimation of work.html'">
-            Back to Selection
-        </button>
+        <button class="action_seting_cal_2" onclick="window.location.href='estimation of work.html'">Back to Selection</button>
     </div>
 
     <div id="contac"></div>
