@@ -1,5 +1,118 @@
-.est_container1{
-    margin-top: 20px;
-    margin-left: 400px;
-    margin-right: 600px;
+.est_container1 {
+    width: 50%; /* You can adjust this as needed */
+    margin: 20px auto; /* Centers the box horizontally */
+    padding: 20px;
+    background-color: rgb(243, 226, 239); /* optional light background */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+}
+
+.descriptionofroad p {
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+.selection_type p {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.selection_type label {
+    display: block;
+    margin-bottom: 8px;
+}
+.selection_type{
+    justify-items: auto;
+}
+.selection_type button {
+    margin-top: 15px;
+    padding: 8px 16px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.selection_type button:hover {
+    background-color: #0056b3;
+}
+
+.message {
+    margin-top: 10px;
+    color: red;
+    font-style: italic;
+}
+
+.esst_cont_adjustment{
+    padding-top: 80px;
+}
+
+/***********CSS of est2.html**************/
+.container_cal {
+    width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #f4f4f4;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    font-family: Arial, sans-serif;
+}
+
+.container_cal label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+.container_cal input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.container_cal input:focus {
+    border-color: #007BFF;
+    outline: none;
+    background-color: #eef6ff;
+}
+
+.container_cal br {
+    display: none; /* You don't need <br> for spacing if you're styling */
+}
+.reslt_calculation_2{
+    max-width: 500px;
+    margin: 30px auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    background-color: #96c3f4;
+    color: white;
+    font-family: Arial, sans-serif;
+    border-radius: 10px;
+    line-height: 1.6;
+}
+.cal_button2{
+    display: flex;
+    justify-content: center;
+}
+.action_seting_cal_2 {
+    justify-content: center;
+    background-color: #38dfe8;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    height:30px;
+    width: 80px;
+}
+.action_seting_cal_2:hover{
+    background-color: #12e8af;
+    height: 50px;
+    width: 100px;
 }
