@@ -68,11 +68,11 @@
             const resultEl = document.getElementById("cal_result");
             resultEl.style.display = "block";
             resultEl.innerHTML = `
-                <p>GSB Material Volume: ${tg.toFixed(2)} m³</p>
+                <p> GSB Material : ${tg.toFixed(2)} units</p>
                 <p>Estimated cost of GSB material: ₹${tgc.toFixed(2)}</p>
-                <p>Wet Mix Material Volume: ${tw.toFixed(2)} m³</p>
+                <p>Wet Mix Material : ${tw.toFixed(2)} units</p>
                 <p>Estimated cost of Wet Mix material: ₹${twc.toFixed(2)}</p>
-                <p>B.T Layer Volume: ${tb.toFixed(2)} m³</p>
+                <p>B.T Layer : ${tb.toFixed(2)} units</p>
                 <p>Estimated cost of B.T material: ₹${tbc.toFixed(2)}</p>
                 <p><strong>Total Estimated Cost: ₹${total.toFixed(2)}</strong></p>
             `;
@@ -167,6 +167,8 @@
     <div id="cal_result" class="reslt_calculation_2" style="display: none;"></div>
 
     <div id="back_button_container" style="display: none; text-align: center; margin-top: 20px;">
+        <p> <span style="color: rgba(245, 100, 100, 0.462);"><b>Note:</b> </span>  <span style="font-family: cursive;font-size: 10px;">This estimation shows the total material cost only. The toal work value includes the combined cost of material cost, 
+            Labour charges, Machinary charges and other Miscellaneous charges.</span></p>
         <button class="action_seting_cal_2" onclick="window.location.href='estimation of work.html'">Back to Selection</button>
     </div>
 
